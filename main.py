@@ -15,6 +15,8 @@ intents.members = True
 
 bot = commands.Bot(command_prefix='!', intents=intents)
 
+secret_role = "bottestrole"
+
 @bot.event
 async def on_ready():
     print(f"We Are Ready To Go, {bot.user.name}")
@@ -46,6 +48,36 @@ async def on_message(message):
 @bot.command()
 async def hello(ctx):
     await ctx.send(f"hello {ctx.author.mention}!")
+
+
+@bot.command()
+async def assign(ctx):
+    role = discord.utils.get(ctx.guild.roles, name=secret_role)
+    if role:
+        await ctx.author.add_roles(role)
+        await ctx.send(f"{ctx.author.mention} is now assigned to {secret_role}")
+    else:
+        await ctx.send("Role doesn't exist")
+
+@bot.command()
+async def remove(ctx):
+    role = discord.utils.get(ctx.guild.roles, name=secret_role)
+    if role:
+        await ctx.author.remove_roles(role)
+        await ctx.send(f"{ctx.author.mention} is bannished from {secret_role}")
+    else:
+        await ctx.send("Role doesn't exist")
+
+@bot.command()
+@commands.has_role(secret_role)
+async def secret(ctx):
+    await ctx.send("YEEE BOII YOU A SECRETT MEMBYY")
+    await ctx.send("https://images-ext-1.discordapp.net/external/BGFn7kJxzDZqy-nFbTNsfQLGzHy3Ag9_BtEOzjzDMKc/https/media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjB6c2Y2ZHQzaHFvdWI0cTNnbms5eWV6aHkzeGp6NnZ4ODRyMHBvbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/gXXFrjHFJIMoqKr8UT/giphy.gif")
+
+
+@secret.error
+async def secret_error(ctx, error):
+    await ctx.send ("we have encountered a error please try again later")
 
 @bot.command()
 async def gif1(ctx):
