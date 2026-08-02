@@ -3,6 +3,7 @@ from discord.ext import commands
 import logging
 from dotenv import load_dotenv
 import os
+import asyncio
 
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
@@ -16,9 +17,15 @@ intents.members = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 secret_role = "bottestrole"
+emoji = '👍'
+emoji1 = '👎'
+mc = 'guild.member_count'
+team = ["that1crzygrl", "Rhys Gxx", "My balls"]  # whoever made the bot
+
 
 @bot.event
 async def on_ready():
+    print(f"Logged in as {bot.user}")
     print(f"We Are Ready To Go, {bot.user.name}")
 
 @bot.event
@@ -46,6 +53,14 @@ async def on_message(message):
     await bot.process_commands(message)
 
 @bot.command()
+async def ping(ctx):
+    end_time = asyncio.get_event_loop().time() + 6  # 5 seconds from now
+
+    while asyncio.get_event_loop().time() < end_time:
+        await ctx.send(f"Pong! Latency is {bot.latency * 1000:.2f}ms")
+        await asyncio.sleep(1)  # send once per second
+
+@bot.command()
 async def hello(ctx):
     await ctx.send(f"hello {ctx.author.mention}!")
 
@@ -69,6 +84,18 @@ async def remove(ctx):
         await ctx.send("Role doesn't exist")
 
 @bot.command()
+async def status(ctx, *, text):
+    await bot.change_presence(
+        status=discord.Status.dnd,
+        activity=discord.Activity(
+            type=discord.ActivityType.watching,
+            name=text
+        )
+    )
+    await ctx.send(f"Now watching: {text} (DND)")
+
+
+@bot.command()
 @commands.has_role(secret_role)
 async def secret(ctx):
     await ctx.send("YEEE BOII YOU A SECRETT MEMBYY")
@@ -77,7 +104,7 @@ async def secret(ctx):
 
 @secret.error
 async def secret_error(ctx, error):
-    await ctx.send ("we have encountered a error please try again later")
+    await ctx.send ("we have encountered an error please try again later, Or read our F&Q/Help Under Error 404 ")
 
 @bot.command()
 async def gif1(ctx):
@@ -87,7 +114,37 @@ async def gif1(ctx):
 
 @bot.command()
 async def img1(ctx):
+
+
     await ctx.send("https://cdn.discordapp.com/attachments/1533572933434216508/1533572955928400145/sams2022-382.jpg?ex=6a70fa9d&is=6a6fa91d&hm=89224e4130cc2e7d0a6706c636371f1a2709d1df47474f28cff00af3fa16fc9f&")
+
+@bot.command()
+async def dm(ctx, *, msg):
+    await ctx.author.send(f"you said {msg}")
+
+@bot.command()
+async def reply(ctx):
+    await ctx.reply("this is a reply")
+
+@bot.command()
+async def poll(ctx, *, msg):
+    await ctx.send(f"{ctx.author.mention} asks {msg}")
+    await ctx.message.add_reaction('👍')
+
+@bot.command()
+async def WAI(ctx):
+    count = sum(1 for m in ctx.guild.members if not m.bot)
+    await ctx.send(f"You are in {ctx.guild.name} with {count} Goys")
+
+@bot.command()
+async def CLANKER(ctx):
+    clank = sum(1 for member in ctx.guild.members if member.bot)
+    await ctx.send(f"You are in {ctx.guild.name} with {clank} clankers.")
+
+@bot.command()
+async def WYM(ctx):
+    await ctx.send(f"your mother is {', '.join(team)}")
+
 
 
 
