@@ -7,6 +7,7 @@ import asyncio
 
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
+open("Discord.log", "w").close()
 
 handler = logging.FileHandler(filename='Discord.log', encoding='utf-8', mode='w')
 
@@ -15,19 +16,19 @@ intents.message_content = True
 intents.members = True
 
 bot = commands.Bot(command_prefix='!', intents=intents)
-
+# change secret role to the role u wanna give- or smtn.
 secret_role = "bottestrole"
 emoji = '👍'
 emoji1 = '👎'
 mc = 'guild.member_count'
-team = ["that1crzygrl", "Rhys Gxx", "My balls"]  # whoever made the bot
+team = ["DumMxttcding", "RhysGxxcding", "ballscratcher"]  # my lovlies that helped <3
 
 
 @bot.event
 async def on_ready():
     print(f"Logged in as {bot.user}")
     print(f"We Are Ready To Go, {bot.user.name}")
-
+# change the welcome message accordlingly
 @bot.event
 async def on_member_join(member):
     try:
@@ -35,7 +36,9 @@ async def on_member_join(member):
     except discord.Forbidden:
         print(f"Could not DM {member.name}. They might have DMs closed.")
 
-BAD_WORDS = ["shit", "fuck", "bitch", "nigger", "nigga", "niggr","nigg"]
+
+# add your owns swears or forbidden words ig?
+BAD_WORDS = ["****", "****", "****", "****", "****", "****","****"]
 
 @bot.event
 async def on_message(message):
@@ -149,3 +152,11 @@ async def WYM(ctx):
 
 
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)
+
+
+# CREDITS
+# discord.py team
+# Ashlyn (DumMxtt)
+# Rhys (RhysGxx)
+# Stephen(Ballscratcher)
+# Tech With Tim (Tutorial guy who helped me do most of this)
