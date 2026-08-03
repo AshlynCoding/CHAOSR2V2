@@ -148,26 +148,28 @@ async def CLANKER(ctx):
 async def WYM(ctx):
     await ctx.send(f"your mother is {', '.join(team)}")
 
-@bot.command()
-async def help(ctx):
-    await ctx.send(
-        "ping\n"
-        "hello\n"
-        "assign\n"
-        "remove\n"
-        "status\n"
-        "secret\n"
-        "gif1\n"
-        "img1\n"
-        "dm\n"
-        "reply\n"
-        "poll\n"
-        "WAI\n"
-        "CLANKER\n"
-        "WYM\n"
-        "help"
-    )
 
+// # doesnt work.
+#@bot.command()
+#async def help(ctx):
+    #await ctx.send(
+        #"ping\n"
+        #"hello\n"
+        #"assign\n"
+        #"remove\n"
+        #"status\n"
+        #"secret\n"
+        #"gif1\n"
+        #"img1\n"
+        #"dm\n"
+        #"reply\n"
+        #"poll\n"
+        #"WAI\n"
+        #"CLANKER\n"
+        #"WYM\n"
+        #"help"
+    )
+// #
 
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)
 
